@@ -9,7 +9,6 @@ public class PlayerRenderer implements EntityRenderer<Player> {
 	@Override
 	public void render(SpriteBatch batch, Player entity) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'render'");
 	}
 	
 }
