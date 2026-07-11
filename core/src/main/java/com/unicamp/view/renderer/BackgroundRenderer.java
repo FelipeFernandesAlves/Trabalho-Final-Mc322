@@ -9,7 +9,7 @@ import com.unicamp.model.CameraFocusable;
 public class BackgroundRenderer {
     private final Texture backgroundTexture;
     // Tamanho do bloco da textura
-    private final float TILE_SIZE = 1024f;
+    private final float TILE_SIZE = 128f;
 
     public BackgroundRenderer(String texturePath) {
         try {
