@@ -8,10 +8,13 @@ import com.unicamp.exception.IllegalEntityStateException;
 
 public abstract class Entity {
 	private final int id;
-	private int x;
-	private int y;
+	private float x;
+	private float y;
 	private float xSpeed;
 	private float ySpeed;
+
+	private String animationName;
+	private String animationState;
 
 	protected boolean active;
 	protected Map<Class<? extends Entity>, Consumer<Entity>> collisionHandlers = new HashMap<>();
@@ -51,12 +54,15 @@ public abstract class Entity {
 	}
 
 	public int getId() { return id; }
-	public int getX() { return this.x; }
-	public int getY() { return this.y; }
+	public float getX() { return this.x; }
+	public float getY() { return this.y; }
 	public boolean isActive() { return this.active; }
 	public float getxSpeed() { return xSpeed; }
 	public float getySpeed() { return ySpeed; }
 	public void setxSpeed(float xSpeed) { this.xSpeed = xSpeed; }
 	public void setySpeed(float ySpeed) { this.ySpeed = ySpeed; }
-	
+	public String getAnimationName() { return animationName; }
+	public void setAnimationName(String animationName) { this.animationName = animationName; }
+	public String getAnimationState() { return animationState; }
+	public void setAnimationState(String animationState) { this.animationState = animationState; }
 }
