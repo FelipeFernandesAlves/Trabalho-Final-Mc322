@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 import com.unicamp.exception.IllegalEntityStateException;
 
-public abstract class Entity {
+public abstract class Entity implements CameraFocusable {
 	private final int id;
 	private int x;
 	private int y;

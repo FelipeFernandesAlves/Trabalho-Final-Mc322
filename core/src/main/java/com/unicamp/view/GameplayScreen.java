@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.unicamp.model.entity.Player;
+import com.unicamp.view.renderer.BackgroundRenderer;
 import com.unicamp.view.scenes.MainScene;
 
 public class GameplayScreen implements Screen {
@@ -17,6 +18,8 @@ public class GameplayScreen implements Screen {
     // Componentes de Arquitetura
     private final Scene scene;
     private final Player player;
+
+    private final BackgroundRenderer backgroundRenderer;
 
     public GameplayScreen(SpriteBatch batch) {
         if (batch == null) {
@@ -31,6 +34,8 @@ public class GameplayScreen implements Screen {
 
         this.scene = new MainScene(); 
         this.scene.addEntity(this.player);
+
+        this.backgroundRenderer = new BackgroundRenderer("grass.png");
     }
 
     @Override
@@ -45,7 +50,11 @@ public class GameplayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.setProjectionMatrix(camera.combined);
+
+        batch.begin();
+        backgroundRenderer.render(batch, player, camera.viewportWidth, camera.viewportHeight);
 		scene.render(batch, delta);
+        batch.end();
     }
 
     /**
@@ -102,5 +111,6 @@ public class GameplayScreen implements Screen {
 
     @Override
     public void dispose() {
+        backgroundRenderer.dispose();
     }
 }

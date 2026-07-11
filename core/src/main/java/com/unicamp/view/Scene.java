@@ -47,11 +47,9 @@ public abstract class Scene {
     }
 
 	public void render(SpriteBatch batch, float delta) {
-		batch.begin();
 		for (Entity entity : entities) {
 			EntityRenderer<Entity> renderer = rendererFactory.getRenderer(entity);
 			renderer.render(batch, entity);
 		}
-    	batch.end();
 	}
 }
