@@ -13,9 +13,6 @@ public class PlayerRenderer implements EntityRenderer<Player> {
 	private final Animation<TextureRegion> idleAnimation;
 	private final Texture idleSheet;
 
-	private static final float RENDER_WIDTH = 128f; 
-    private static final float RENDER_HEIGHT = 128f;
-
 	private Animation<TextureRegion> currentAnimation;
 	private float stateTime;
 

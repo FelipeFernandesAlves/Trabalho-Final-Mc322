@@ -4,21 +4,20 @@ import com.unicamp.model.Entity;
 import com.unicamp.model.EntityManager;
 import com.unicamp.model.valueobject.PositionVO;
 
-public abstract class Enemy extends Entity {
+public abstract class Enemy extends Creature {
 
     private float baseSpeed;
-    private int health;
     private int damage;
 
-    public Enemy(float x, float y, float baseSpeed, int health, int damage) {
-        super(x, y, 5);
+    public Enemy(float x, float y, float baseSpeed, int health, int damage, float hitW, float hitH) {
+        super(x, y, hitW, hitH, health);
         this.baseSpeed = baseSpeed;
-        this.health = health;
         this.damage = damage;
     }
 
     @Override
     public void update(float deltaTime, EntityManager entityManager) {
+        super.update(deltaTime, entityManager);
         PositionVO target = entityManager.findFirst(Player.class);
 
         if (target != null) {
@@ -43,7 +42,5 @@ public abstract class Enemy extends Entity {
         move();
     }
 
-    public int getHealth() { return health; }
-    public void takeDamage(int amount) { this.health -= amount; }
     public int getDamage() { return damage; }
 }

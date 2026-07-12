@@ -26,7 +26,7 @@ public class MainScene extends Scene {
         this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
   		this.backgroundRenderer = new BackgroundRenderer("grass.png");
 		
-		this.player = new Player(0, 0, 10);
+		this.player = new Player(0, 0);
 		player.addWeapon(new Whip());
 
 		this.batch = batch;
@@ -51,6 +51,7 @@ public class MainScene extends Scene {
 	}
 
 	public void input() {
+		final float WALK_SPEED = 10.5f;
 		float speedX = Boolean.compare(Gdx.input.isKeyPressed(Keys.D), false) -  Boolean.compare(Gdx.input.isKeyPressed(Keys.A), false);
 		float speedY = Boolean.compare(Gdx.input.isKeyPressed(Keys.W), false) -  Boolean.compare(Gdx.input.isKeyPressed(Keys.S), false);
 		float magnitude = (float) Math.sqrt(Math.pow(speedX, 2) + Math.pow(speedY, 2));
@@ -60,7 +61,7 @@ public class MainScene extends Scene {
 			speedY /= magnitude;
 		}
 
-		player.setxSpeed(speedX);
-		player.setySpeed(speedY);
+		player.setxSpeed(speedX * WALK_SPEED);
+		player.setySpeed(speedY * WALK_SPEED);
 	}
 }

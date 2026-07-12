@@ -48,6 +48,7 @@ public class EnemySpawner<T extends Enemy> {
 
     private void spawnEnemy() {
         PositionVO target = entityManager.findFirst(Player.class);
+        if (target == null) return;
 
         float angle = (float) (random.nextDouble() * Math.PI * 2);
 

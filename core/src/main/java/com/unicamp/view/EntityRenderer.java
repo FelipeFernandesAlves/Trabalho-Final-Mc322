@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.unicamp.model.Entity;
 
 public interface EntityRenderer<T extends Entity> {
+	public static final float RENDER_WIDTH = 128f; 
+    public static final float RENDER_HEIGHT = 128f;
+
 	public void render(SpriteBatch batch, T entity);
 	public void dispose();
 

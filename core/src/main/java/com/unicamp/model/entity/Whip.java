@@ -9,7 +9,7 @@ import com.unicamp.model.entity.projectile.WhipProjectile;
 public class Whip extends Weapon {
 
 	public Whip() {
-		super(5,3.5f);
+		super(10000,3.5f);
 	}
 
 	private float weaponTimer = 0.0f;

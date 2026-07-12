@@ -8,10 +8,8 @@ import com.unicamp.model.Entity;
 import com.unicamp.model.EntityManager;
 import com.unicamp.model.Weapon;
 
-public class Player extends Entity {
+public class Player extends Creature {
 
-    private int maxHp = 100;
-    private int hp = maxHp;
     private int level = 1;
     private int xp = 0;
     private int xpToNextLevel = 100;
@@ -21,17 +19,24 @@ public class Player extends Entity {
     private int maxWeapons = 3;
     private Set<Weapon> weapons = new HashSet<>(maxWeapons);
 
-    public Player(int x, int y, int hitRadius) {
-        super(x, y, hitRadius);
+    public Player(int x, int y) {
+        super(x, y, 30, 80, 100);
         this.stats = new CombatStats();
+        
+        onCollideWith(Enemy.class, enemy -> {
+            if (!getIsOnDamageCooldown())
+                takeDamage(enemy.getDamage());
+        }); 
     }
 
     @Override
     public void update(float deltaTime, EntityManager entitySpawner) {
+        super.update(deltaTime, entitySpawner);
+
         for (Weapon weapon : weapons) {
             weapon.update(deltaTime, getX(), getY(), stats, entitySpawner);
         }
-
+        
         move();
     }
 
@@ -57,9 +62,5 @@ public class Player extends Entity {
     public void levelUp() {
         xp = 0;
         xpToNextLevel *= 1.5;
-    }
-
-    public void changeHp(int value) {
-        this.hp += value;
     }
 }
