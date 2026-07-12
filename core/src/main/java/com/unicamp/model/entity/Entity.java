@@ -1,8 +1,10 @@
-package com.unicamp.model;
+package com.unicamp.model.entity;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
+
+import com.unicamp.model.CameraFocusable;
 
 public abstract class Entity implements CameraFocusable {
 	private float x;

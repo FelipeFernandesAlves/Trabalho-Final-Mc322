@@ -1,8 +1,8 @@
 package com.unicamp.view;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.unicamp.model.Entity;
-import com.unicamp.model.EntityManager;
+import com.unicamp.model.entity.Entity;
+import com.unicamp.model.entity.EntityManager;
 
 public abstract class Scene {
     protected final EntityManager entityManager;

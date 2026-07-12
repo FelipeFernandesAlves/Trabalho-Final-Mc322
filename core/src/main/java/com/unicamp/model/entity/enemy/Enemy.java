@@ -1,7 +1,9 @@
-package com.unicamp.model.entity;
+package com.unicamp.model.entity.enemy;
 
-import com.unicamp.model.Entity;
-import com.unicamp.model.EntityManager;
+import com.unicamp.model.entity.Creature;
+import com.unicamp.model.entity.Entity;
+import com.unicamp.model.entity.EntityManager;
+import com.unicamp.model.entity.Player;
 import com.unicamp.model.valueobject.PositionVO;
 
 public abstract class Enemy extends Creature {

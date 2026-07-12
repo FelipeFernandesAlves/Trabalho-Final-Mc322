@@ -4,9 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.unicamp.model.CombatStats;
-import com.unicamp.model.Entity;
-import com.unicamp.model.EntityManager;
-import com.unicamp.model.Weapon;
+import com.unicamp.model.entity.enemy.Enemy;
+import com.unicamp.model.entity.weapon.Weapon;
 
 public class Player extends Creature {
 

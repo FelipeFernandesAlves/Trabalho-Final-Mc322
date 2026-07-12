@@ -1,8 +1,5 @@
 package com.unicamp.model.entity;
 
-import com.unicamp.model.Entity;
-import com.unicamp.model.EntityManager;
-
 public abstract class Creature extends Entity {
 
     private int maxHp;

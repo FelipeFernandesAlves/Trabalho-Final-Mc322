@@ -1,4 +1,4 @@
-package com.unicamp.model.entity;
+package com.unicamp.model.entity.enemy;
 
 import com.unicamp.model.entity.projectile.WhipProjectile;
 

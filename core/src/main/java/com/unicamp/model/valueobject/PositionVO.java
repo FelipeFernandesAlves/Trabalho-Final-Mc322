@@ -1,6 +1,6 @@
 package com.unicamp.model.valueobject;
 
-import com.unicamp.model.Entity;
+import com.unicamp.model.entity.Entity;
 
 public class PositionVO {
 	private final float x;

@@ -1,4 +1,7 @@
-package com.unicamp.model;
+package com.unicamp.model.entity.weapon;
+
+import com.unicamp.model.CombatStats;
+import com.unicamp.model.entity.EntityManager;
 
 public abstract class Weapon {
     protected float baseDamage;

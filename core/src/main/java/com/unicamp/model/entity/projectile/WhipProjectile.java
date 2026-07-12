@@ -1,9 +1,8 @@
 package com.unicamp.model.entity.projectile;
 
-import com.unicamp.model.Entity;
-import com.unicamp.model.EntityManager;
+import com.unicamp.model.entity.Entity;
+import com.unicamp.model.entity.EntityManager;
 import com.unicamp.model.entity.Player;
-import com.unicamp.model.entity.Projectile;
 import com.unicamp.model.valueobject.PositionVO;
 
 public class WhipProjectile extends Projectile {

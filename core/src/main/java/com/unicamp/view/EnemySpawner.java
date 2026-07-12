@@ -6,10 +6,10 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.unicamp.model.EntityManager;
-import com.unicamp.model.entity.Enemy;
+import com.unicamp.model.entity.EntityManager;
 import com.unicamp.model.entity.Player;
-import com.unicamp.model.entity.Zombie;
+import com.unicamp.model.entity.enemy.Enemy;
+import com.unicamp.model.entity.enemy.Zombie;
 import com.unicamp.model.valueobject.PositionVO;
 
 public class EnemySpawner<T extends Enemy> {

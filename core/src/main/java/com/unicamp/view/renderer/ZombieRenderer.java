@@ -2,7 +2,7 @@ package com.unicamp.view.renderer;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.unicamp.model.entity.Zombie;
+import com.unicamp.model.entity.enemy.Zombie;
 import com.unicamp.view.EntityRenderer;
 
 /**

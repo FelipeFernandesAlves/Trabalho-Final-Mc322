@@ -3,9 +3,9 @@ package com.unicamp.view;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.unicamp.model.Entity;
+import com.unicamp.model.entity.Entity;
 import com.unicamp.model.entity.Player;
-import com.unicamp.model.entity.Zombie;
+import com.unicamp.model.entity.enemy.Zombie;
 import com.unicamp.model.entity.projectile.WhipProjectile;
 import com.unicamp.view.renderer.PlayerRenderer;
 import com.unicamp.view.renderer.WhipRenderer;
