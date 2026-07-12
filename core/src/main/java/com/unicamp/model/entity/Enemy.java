@@ -1,6 +1,6 @@
 package com.unicamp.model.entity;
 
-import com.unicamp.model.Entity;
+import com.unicamp.exception.IllegalEntityStateException;
 import com.unicamp.model.EntityManager;
 import com.unicamp.model.valueobject.PositionVO;
 
@@ -39,7 +39,11 @@ public abstract class Enemy extends Creature {
             this.setySpeed(0);
         }
         
-        move();
+        try {
+            move();
+        } catch (IllegalEntityStateException e) {
+            System.err.println("Movimento ignorado: " + e.getMessage());
+        }
     }
 
     public int getDamage() { return damage; }
