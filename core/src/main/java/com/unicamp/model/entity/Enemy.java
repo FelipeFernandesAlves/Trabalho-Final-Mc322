@@ -1,6 +1,8 @@
 package com.unicamp.model.entity;
 
 import com.unicamp.model.Entity;
+import com.unicamp.model.EntityManager;
+import com.unicamp.model.valueobject.PositionVO;
 
 public abstract class Enemy extends Entity {
 
@@ -8,23 +10,21 @@ public abstract class Enemy extends Entity {
     private int health;
     private int damage;
 
-    private Player target;
-
-    public Enemy(int id, float x, float y, float baseSpeed, int health, int damage, Player target) {
-        super(id, x, y);
+    public Enemy(float x, float y, float baseSpeed, int health, int damage) {
+        super(x, y, 5);
         this.baseSpeed = baseSpeed;
         this.health = health;
         this.damage = damage;
-        this.target = target;
     }
 
     @Override
-    public void update(float deltaTime) {
+    public void update(float deltaTime, EntityManager entityManager) {
+        PositionVO target = entityManager.findFirst(Player.class);
 
-        if (target != null && target.isActive()) {
+        if (target != null) {
             
-            float dirX = target.getX() - this.getX();
-            float dirY = target.getY() - this.getY();
+            float dirX = target.x() - this.getX();
+            float dirY = target.y() - this.getY();
 
             float distance = (float) Math.sqrt(dirX * dirX + dirY * dirY);
             
@@ -36,7 +36,6 @@ public abstract class Enemy extends Entity {
                 this.setySpeed(dirYNorm * baseSpeed * deltaTime);
             }
         } else {
-
             this.setxSpeed(0);
             this.setySpeed(0);
         }

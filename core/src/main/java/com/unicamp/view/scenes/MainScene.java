@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.unicamp.model.entity.Player;
 import com.unicamp.model.entity.Whip;
+import com.unicamp.model.entity.Zombie;
+import com.unicamp.view.EnemySpawner;
 import com.unicamp.view.Scene;
 import com.unicamp.view.renderer.BackgroundRenderer;
 
@@ -17,6 +19,8 @@ public class MainScene extends Scene {
     private final OrthographicCamera camera;
     private final BackgroundRenderer backgroundRenderer;
 
+	private final EnemySpawner<Zombie> zombieSpawner;
+
 	public MainScene(SpriteBatch batch, OrthographicCamera camera) {
         this.camera = camera;
         this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -26,6 +30,7 @@ public class MainScene extends Scene {
 		player.addWeapon(new Whip());
 
 		this.batch = batch;
+		this.zombieSpawner = new EnemySpawner<Zombie>(entityManager, 0, () -> new Zombie(0, 0), camera);
 		addEntity(player);
 	}
 
@@ -41,6 +46,7 @@ public class MainScene extends Scene {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
+		zombieSpawner.update(deltaTime);
         backgroundRenderer.render(batch, player, camera.viewportWidth, camera.viewportHeight);
 	}
 
