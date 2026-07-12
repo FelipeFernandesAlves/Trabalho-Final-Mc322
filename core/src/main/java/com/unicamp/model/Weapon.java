@@ -15,7 +15,7 @@ public abstract class Weapon {
         this.currentCooldown = 0f;
     }
 
-    public final void update(float deltaTime, float playerX, float playerY, CombatStats playerStats, EntitySpawner spawner) {
+    public final void update(float deltaTime, float playerX, float playerY, CombatStats playerStats, EntityManager spawner) {
         this.currentCooldown -= deltaTime;
 
         if (this.currentCooldown <= 0) {
@@ -26,6 +26,6 @@ public abstract class Weapon {
         }
     }
 
-    protected abstract void executeAttack(float originX, float originY, float finalDamage, CombatStats stats, EntitySpawner spawner);
+    protected abstract void executeAttack(float originX, float originY, float finalDamage, CombatStats stats, EntityManager spawner);
 	public abstract void levelUp();
 }

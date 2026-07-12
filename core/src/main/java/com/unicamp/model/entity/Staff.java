@@ -1,7 +1,7 @@
 package com.unicamp.model.entity;
 
 import com.unicamp.model.CombatStats;
-import com.unicamp.model.EntitySpawner;
+import com.unicamp.model.EntityManager;
 import com.unicamp.model.Weapon;
 
 public class Staff extends Weapon {
@@ -15,7 +15,7 @@ public class Staff extends Weapon {
 
 	@Override
 	protected void executeAttack(float originX, float originY, float finalDamage, CombatStats stats,
-			EntitySpawner spawner) {
+			EntityManager spawner) {
 
 	}
 

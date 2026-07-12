@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import com.unicamp.exception.IllegalEntityStateException;
-
 public abstract class Entity implements CameraFocusable {
 	private float x;
 	private float y;
@@ -28,7 +26,7 @@ public abstract class Entity implements CameraFocusable {
 	}
 
 	protected void create() {}
-	public abstract void update(float deltaTime, EntitySpawner entitySpawner);
+	public abstract void update(float deltaTime, EntityManager entitySpawner);
 
 	public void resolveCollision(Entity other) {
 		Consumer<Entity> handler = collisionHandlers.get(other.getClass());
@@ -62,6 +60,8 @@ public abstract class Entity implements CameraFocusable {
 
 	public float getX() { return this.x; }
 	public float getY() { return this.y; }
+	public void setX(float x) { this.x = x; }
+	public void setY(float y) { this.y = y; }
 	public boolean isActive() { return this.active; }
 	public float getxSpeed() { return xSpeed; }
 	public float getySpeed() { return ySpeed; }

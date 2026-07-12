@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.unicamp.model.CombatStats;
 import com.unicamp.model.Entity;
-import com.unicamp.model.EntitySpawner;
+import com.unicamp.model.EntityManager;
 import com.unicamp.model.Weapon;
 
 public class Player extends Entity {
@@ -27,7 +27,7 @@ public class Player extends Entity {
     }
 
     @Override
-    public void update(float deltaTime, EntitySpawner entitySpawner) {
+    public void update(float deltaTime, EntityManager entitySpawner) {
         for (Weapon weapon : weapons) {
             weapon.update(deltaTime, getX(), getY(), stats, entitySpawner);
         }
