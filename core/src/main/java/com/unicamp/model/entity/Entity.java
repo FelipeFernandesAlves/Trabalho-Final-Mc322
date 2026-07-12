@@ -86,6 +86,7 @@ public abstract class Entity implements CameraFocusable {
 	public boolean isActive() { return this.active; }
 	public float getxSpeed() { return xSpeed; }
 	public float getySpeed() { return ySpeed; }
+	public boolean isFlipped() { return xSpeed < 0; } // o padrão é para a direita
 	public void setxSpeed(float xSpeed) { this.xSpeed = xSpeed; }
 	public void setySpeed(float ySpeed) { this.ySpeed = ySpeed; }
 	public String getAnimationName() { return animationName; }
