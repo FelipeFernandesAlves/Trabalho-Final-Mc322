@@ -1,9 +1,14 @@
 package com.unicamp.view;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.unicamp.view.scenes.MainScene;
 
@@ -12,8 +17,16 @@ public class GameplayScreen implements Screen {
     private final SpriteBatch batch;
     private final OrthographicCamera camera;
 
-    // Componentes de Arquitetura
     private final Scene scene;
+
+    private float spawnTimer = 0f;
+    private final float SPAWN_INTERVAL = 1.5f;
+    private Random random;
+
+    private Texture playerTexture;
+    private Texture zombieTexture;
+
+    float spriteSize = 64f;
 
     public GameplayScreen(SpriteBatch batch) {
         if (batch == null) {
