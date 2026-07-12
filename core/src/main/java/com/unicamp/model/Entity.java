@@ -12,16 +12,18 @@ public abstract class Entity implements CameraFocusable {
 
 	private String animationName;
 	private String animationState;
-	private final int hitRadius;
+	private final float hitW;
+	private final float hitH;
 	
 	protected boolean active;
 	protected Map<Class<? extends Entity>, Consumer<Entity>> collisionHandlers = new HashMap<>();
 
-	public Entity(float x, float y, int hitRadius) {
+	public Entity(float x, float y, float hitW, float hitH) {
 		this.x = x;
 		this.y = y;
 		this.active = true;
-		this.hitRadius = hitRadius;
+		this.hitW = hitW;
+		this.hitH = hitH;
 		create();
 	}
 
@@ -29,7 +31,20 @@ public abstract class Entity implements CameraFocusable {
 	public abstract void update(float deltaTime, EntityManager entitySpawner);
 
 	public void resolveCollision(Entity other) {
-		Consumer<Entity> handler = collisionHandlers.get(other.getClass());
+		Class<? extends Entity> targetClass = other.getClass();
+		Consumer<Entity> handler = collisionHandlers.get(targetClass);
+
+		if (handler == null) {
+            for (Map.Entry<Class<? extends Entity>, Consumer<Entity>> entry : collisionHandlers.entrySet()) {
+
+                if (entry.getKey().isAssignableFrom(targetClass)) {
+                    handler = entry.getValue();
+                    collisionHandlers.put(targetClass, handler);
+                    break;
+                }
+            }
+        }
+
 		if (handler != null) {
 			handler.accept(other);
 		}
@@ -50,14 +65,18 @@ public abstract class Entity implements CameraFocusable {
 	}
 
 	public boolean checkCollision(Entity other) {
-        float dx = this.x - other.x;
-        float dy = this.y - other.y;
-        float distanceSquared = (dx * dx) + (dy * dy);
-        float radiiSum = this.hitRadius + other.hitRadius;
-        
-        return distanceSquared < (radiiSum * radiiSum);
+        double distX = Math.abs(this.getX() - other.getX());
+        double distY = Math.abs(this.getY() - other.getY());
+
+        double w = (this.hitW + other.getHitW()) / 2.0;
+        double h = (this.hitH + other.getHitH()) / 2.0;
+
+        return (distX < w && distY < h);
     }
 
+	
+	public float getHitW() { return this.hitW; }
+	public float getHitH() { return this.hitH; }
 	public float getX() { return this.x; }
 	public float getY() { return this.y; }
 	public void setX(float x) { this.x = x; }

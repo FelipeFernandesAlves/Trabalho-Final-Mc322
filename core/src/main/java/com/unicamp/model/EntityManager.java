@@ -10,6 +10,7 @@ import com.unicamp.exception.NullEntityException;
 import com.unicamp.model.valueobject.PositionVO;
 import com.unicamp.view.EntityRenderer;
 import com.unicamp.view.RendererFactory;
+import com.unicamp.view.renderer.DebugRenderer;
 
 //refatorar em codigos mais especializados
 public class EntityManager {
@@ -17,11 +18,12 @@ public class EntityManager {
 	private final List<Entity> entities;
 	private final RendererFactory rendererFactory;
 	
-	private static float globalTime = 0f;
+	private final boolean isDebug = true;
+	private final DebugRenderer debugRenderer = new DebugRenderer();
 
+	private static float globalTime = 0f;
 	private boolean isPaused = false;
-	
-	
+  
 	public EntityManager() {
 		this.entitiesToSpawn = new ArrayList<>();
 		this.entities = new ArrayList<>();
@@ -32,6 +34,7 @@ public class EntityManager {
 		for (Entity entity : entities) {
 			EntityRenderer<Entity> renderer = rendererFactory.getRenderer(entity);
 			renderer.render(batch, entity);
+			if (isDebug) debugRenderer.render(batch, entity);
 		}
 	}
 
