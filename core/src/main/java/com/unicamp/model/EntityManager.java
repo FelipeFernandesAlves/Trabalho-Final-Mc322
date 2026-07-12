@@ -11,10 +11,16 @@ import com.unicamp.model.valueobject.PositionVO;
 import com.unicamp.view.EntityRenderer;
 import com.unicamp.view.RendererFactory;
 
+//refatorar em codigos mais especializados
 public class EntityManager {
 	private final List<Entity> entitiesToSpawn;
 	private final List<Entity> entities;
 	private final RendererFactory rendererFactory;
+	
+	private static float globalTime = 0f;
+
+	private boolean isPaused = false;
+	
 	
 	public EntityManager() {
 		this.entitiesToSpawn = new ArrayList<>();
@@ -45,10 +51,15 @@ public class EntityManager {
 	public void handleUpdate(float deltaTime) {
 		Iterator<Entity> iterator = entities.iterator();
         
+		if (!isPaused) {
+            globalTime += deltaTime;
+        }
+
         while (iterator.hasNext()) {
             Entity entity = iterator.next();
             
             if (entity.isActive()) {
+				if(!isPaused)
                 entity.update(deltaTime, this);
             } else {
                 iterator.remove(); 
@@ -107,4 +118,12 @@ public class EntityManager {
 	public void clear() {
 		entitiesToSpawn.clear();
 	}
+
+	public boolean getIsPaused(){
+		return isPaused;
+	}
+
+	public static float getGlobalTime() {
+        return globalTime;
+    }
 }

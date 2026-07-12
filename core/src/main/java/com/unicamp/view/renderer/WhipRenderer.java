@@ -20,7 +20,7 @@ public class WhipRenderer implements EntityRenderer<WhipProjectile> {
 	private float stateTime;
 
 	public WhipRenderer() {
-		idleSheet = new Texture(Gdx.files.internal("Slash_Merge.png"));
+		idleSheet = new Texture(Gdx.files.internal("weapons/Slash_Merge.png"));
 		this.idleAnimation = createAnimation(idleSheet, 6, 1, 0.25f);
 		this.currentAnimation = this.idleAnimation;
 	}

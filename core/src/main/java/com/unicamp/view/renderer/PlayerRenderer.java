@@ -10,37 +10,51 @@ import com.unicamp.view.EntityRenderer;
 
 public class PlayerRenderer implements EntityRenderer<Player> {
 
-	private final Animation<TextureRegion> idleAnimation;
-	private final Texture idleSheet;
+    private final Texture idleTexture;
+    private final TextureRegion idleRegion;
 
-	private static final float RENDER_WIDTH = 128f; 
+    private final Animation<TextureRegion> walkingAnimation;
+    private final Texture walkingSheet;
+
+    private static final float RENDER_WIDTH = 128f; 
     private static final float RENDER_HEIGHT = 128f;
 
-	private Animation<TextureRegion> currentAnimation;
-	private float stateTime;
+    private float stateTime;
 
-	public PlayerRenderer() {
-		idleSheet = new Texture(Gdx.files.internal("Player_Merged.png"));
-		this.idleAnimation = createAnimation(idleSheet, 8, 1, 0.25f);
+    public PlayerRenderer() {
+        this.idleTexture = new Texture("entities/player/Player_idle.png");
+        this.idleRegion = new TextureRegion(idleTexture); 
 
-		this.currentAnimation = this.idleAnimation;
-	}
+        walkingSheet = new Texture(Gdx.files.internal("entities/player/Player_walking.png"));
+        this.walkingAnimation = createAnimation(walkingSheet, 8, 1, 0.25f);
+    }
 
-	@Override
-	public void render(SpriteBatch batch, Player entity) {
-		stateTime += Gdx.graphics.getDeltaTime();
-		TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
-		batch.draw(currentFrame, 
-                   entity.getX() - RENDER_WIDTH / 2f,  
-                   entity.getY() - RENDER_HEIGHT / 2f, 
-                   RENDER_WIDTH,                      
-                   RENDER_HEIGHT                      
+    @Override
+    public void render(SpriteBatch batch, Player entity) {
+        stateTime += Gdx.graphics.getDeltaTime();
+        
+        TextureRegion regionToDraw;
+
+        if (entity.getySpeed() != 0 || entity.getxSpeed() != 0) {
+            regionToDraw = walkingAnimation.getKeyFrame(stateTime, true);
+        } else {
+            regionToDraw = idleRegion;
+        }
+
+        if ((entity.isFlipped() && !regionToDraw.isFlipX()) || (!entity.isFlipped() && regionToDraw.isFlipX()))
+            regionToDraw.flip(true, false); 
+
+        batch.draw(regionToDraw, 
+            entity.getX() - RENDER_WIDTH / 2f,  
+            entity.getY() - RENDER_HEIGHT / 2f, 
+            RENDER_WIDTH,                      
+            RENDER_HEIGHT           
         );
-	}
+    }
 
-	@Override
-	public void dispose() {
-		idleSheet.dispose();
-	}
-	
+    @Override
+    public void dispose() {
+        idleTexture.dispose();
+        walkingSheet.dispose();
+    }
 }
