@@ -13,12 +13,15 @@ public class PlayerRenderer implements EntityRenderer<Player> {
 	private final Animation<TextureRegion> idleAnimation;
 	private final Texture idleSheet;
 
+	private static final float RENDER_WIDTH = 128f; 
+    private static final float RENDER_HEIGHT = 128f;
+
 	private Animation<TextureRegion> currentAnimation;
 	private float stateTime;
 
 	public PlayerRenderer() {
-		idleSheet = new Texture(Gdx.files.internal("hero_down.png"));
-		this.idleAnimation = createAnimation(idleSheet, 6, 1, 0.25f);
+		idleSheet = new Texture(Gdx.files.internal("Player_Merged.png"));
+		this.idleAnimation = createAnimation(idleSheet, 8, 1, 0.25f);
 
 		this.currentAnimation = this.idleAnimation;
 	}
@@ -27,7 +30,12 @@ public class PlayerRenderer implements EntityRenderer<Player> {
 	public void render(SpriteBatch batch, Player entity) {
 		stateTime += Gdx.graphics.getDeltaTime();
 		TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
-		batch.draw(currentFrame, entity.getX(), entity.getY());
+		batch.draw(currentFrame, 
+                   entity.getX() - RENDER_WIDTH / 2f,  
+                   entity.getY() - RENDER_HEIGHT / 2f, 
+                   RENDER_WIDTH,                      
+                   RENDER_HEIGHT                      
+        );
 	}
 
 	@Override
