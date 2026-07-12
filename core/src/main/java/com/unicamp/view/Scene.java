@@ -45,6 +45,21 @@ public abstract class Scene {
             entitySpawner.clear();
         }
 
+        for (int i = 0; i < entities.size(); i++) {
+            Entity a = entities.get(i);
+            if (!a.isActive()) continue;
+
+            for (int j = i + 1; j < entities.size(); j++) {
+                Entity b = entities.get(j);
+                if (!b.isActive()) continue;
+
+                if (a.checkCollision(b)) {
+                    a.resolveCollision(b);
+                    b.resolveCollision(a);
+                }
+            }
+        }
+
         onUpdate(deltaTime);
     }
 

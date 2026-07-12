@@ -5,7 +5,9 @@ import java.util.Map;
 
 import com.unicamp.model.Entity;
 import com.unicamp.model.entity.Player;
+import com.unicamp.model.entity.projectile.WhipProjectile;
 import com.unicamp.view.renderer.PlayerRenderer;
+import com.unicamp.view.renderer.WhipRenderer;
 
 public class RendererFactory {
 	
@@ -15,6 +17,7 @@ public class RendererFactory {
 	private RendererFactory() {
 		this.renderers = new HashMap<>();
 		addRenderer(Player.class, new PlayerRenderer());
+		addRenderer(WhipProjectile.class, new WhipRenderer());
 	}
 
 	public static void build() {

@@ -1,9 +1,9 @@
 package com.unicamp.model.entity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.unicamp.model.CombatStats;
 import com.unicamp.model.Entity;
 import com.unicamp.model.EntitySpawner;
 import com.unicamp.model.Weapon;
@@ -16,25 +16,21 @@ public class Player extends Entity {
     private int xp = 0;
     private int xpToNextLevel = 100;
 
-    private int weaponCooldown = 1;
-    private float weaponTimer = 0.0f;
+    private final CombatStats stats;
 
     private int maxWeapons = 3;
     private Set<Weapon> weapons = new HashSet<>(maxWeapons);
 
-    public Player(int id, int x, int y) {
-        super(id, x, y);
+    public Player(int x, int y, int hitRadius) {
+        super(x, y, hitRadius);
+        this.stats = new CombatStats();
     }
 
     @Override
     public void update(float deltaTime, EntitySpawner entitySpawner) {
-        weaponTimer += deltaTime;
-        if (weaponTimer >= weaponCooldown) {
-            for (Weapon weapon : weapons) {
-                weapon.activate(this, entitySpawner);
-            }
-            weaponTimer = 0.0f;
-        } 
+        for (Weapon weapon : weapons) {
+            weapon.update(deltaTime, getX(), getY(), stats, entitySpawner);
+        }
 
         move();
     }

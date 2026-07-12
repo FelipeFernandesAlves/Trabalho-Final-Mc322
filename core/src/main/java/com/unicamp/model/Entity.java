@@ -7,7 +7,6 @@ import java.util.function.Consumer;
 import com.unicamp.exception.IllegalEntityStateException;
 
 public abstract class Entity implements CameraFocusable {
-	private final int id;
 	private float x;
 	private float y;
 	private float xSpeed;
@@ -15,15 +14,16 @@ public abstract class Entity implements CameraFocusable {
 
 	private String animationName;
 	private String animationState;
-
+	private final int hitRadius;
+	
 	protected boolean active;
 	protected Map<Class<? extends Entity>, Consumer<Entity>> collisionHandlers = new HashMap<>();
 
-	public Entity(int id, float x, float y) {
-		this.id = id;
+	public Entity(float x, float y, int hitRadius) {
 		this.x = x;
 		this.y = y;
 		this.active = true;
+		this.hitRadius = hitRadius;
 		create();
 	}
 
@@ -42,10 +42,8 @@ public abstract class Entity implements CameraFocusable {
         collisionHandlers.put(type, (Entity e) -> action.accept((T) e));
     }
 
-	public void destroy() throws IllegalEntityStateException {
-		if (!active) {
-			throw new IllegalEntityStateException("Tentando destruir uma Entidade já destruída: " + Integer.toString(this.id));
-		}
+	public void destroy() {
+		active = false;
 	}
 
 	public void move() {
@@ -53,7 +51,15 @@ public abstract class Entity implements CameraFocusable {
 		y += ySpeed;
 	}
 
-	public int getId() { return id; }
+	public boolean checkCollision(Entity other) {
+        float dx = this.x - other.x;
+        float dy = this.y - other.y;
+        float distanceSquared = (dx * dx) + (dy * dy);
+        float radiiSum = this.hitRadius + other.hitRadius;
+        
+        return distanceSquared < (radiiSum * radiiSum);
+    }
+
 	public float getX() { return this.x; }
 	public float getY() { return this.y; }
 	public boolean isActive() { return this.active; }

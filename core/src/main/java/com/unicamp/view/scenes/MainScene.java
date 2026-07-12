@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.unicamp.model.entity.Player;
+import com.unicamp.model.entity.Whip;
 import com.unicamp.view.Scene;
 import com.unicamp.view.renderer.BackgroundRenderer;
 
@@ -20,7 +21,10 @@ public class MainScene extends Scene {
         this.camera = camera;
         this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
   		this.backgroundRenderer = new BackgroundRenderer("grass.png");
-		this.player = new Player(0, 0, 0);
+		
+		this.player = new Player(0, 0, 10);
+		player.addWeapon(new Whip());
+
 		this.batch = batch;
 		addEntity(player);
 	}

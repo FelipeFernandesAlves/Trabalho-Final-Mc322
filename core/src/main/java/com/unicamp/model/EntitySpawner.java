@@ -13,11 +13,10 @@ public class EntitySpawner {
 		this.entitiesToSpawn = new ArrayList<>();
 	}
 
-	public void addEntity(Entity e) throws NullEntityException {
-		if (e == null) {
-			throw new NullEntityException("Tentando spawnar uma entidade null");
+	public void addEntity(Entity e) {
+		if (e != null) {
+			entitiesToSpawn.add(e);
 		} 
-		entitiesToSpawn.add(e);
 	}
 
 	public void addAllEntities(List<Entity> entities) throws NullEntityException {
