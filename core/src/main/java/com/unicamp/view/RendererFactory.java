@@ -5,7 +5,11 @@ import java.util.Map;
 
 import com.unicamp.model.Entity;
 import com.unicamp.model.entity.Player;
+import com.unicamp.model.entity.Zombie;
+import com.unicamp.model.entity.projectile.WhipProjectile;
 import com.unicamp.view.renderer.PlayerRenderer;
+import com.unicamp.view.renderer.WhipRenderer;
+import com.unicamp.view.renderer.ZombieRenderer;
 
 public class RendererFactory {
 	
@@ -14,7 +18,9 @@ public class RendererFactory {
 
 	private RendererFactory() {
 		this.renderers = new HashMap<>();
-		renderers.put(Player.class, new PlayerRenderer());
+		addRenderer(Player.class, new PlayerRenderer());
+		addRenderer(WhipProjectile.class, new WhipRenderer());
+		addRenderer(Zombie.class, new ZombieRenderer());
 	}
 
 	public static void build() {
@@ -36,5 +42,9 @@ public class RendererFactory {
         }
         
         return (EntityRenderer<T>) renderer;
+	}
+
+	public void addRenderer(Class<? extends Entity> entityClass, EntityRenderer<? extends Entity> renderer) {
+		renderers.put(entityClass, renderer);
 	}
 }
