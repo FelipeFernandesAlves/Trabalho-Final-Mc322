@@ -31,7 +31,7 @@ public class EnemySpawner<T extends Enemy> {
         this.spriteSize = spriteSize;
         this.enemies = new ArrayList<>();
         this.random = new Random();
-        this.enemyFactory = enemyFactory != null ? enemyFactory : () -> (T) new Zombie(0, 0);
+        this.enemyFactory = enemyFactory != null ? enemyFactory : () -> (T) new Zombie(0, 0, entityManager);
     }
     
     public void update(float delta) {

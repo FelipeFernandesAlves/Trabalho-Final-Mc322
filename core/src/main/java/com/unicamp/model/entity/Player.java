@@ -9,10 +9,6 @@ import com.unicamp.model.entity.weapon.Weapon;
 
 public class Player extends Creature {
 
-    private int level = 1;
-    private int xp = 0;
-    private int xpToNextLevel = 100;
-
     private final CombatStats stats;
 
     private int maxWeapons = 3;
@@ -56,10 +52,5 @@ public class Player extends Creature {
             }
         }
         return null;
-    }
-
-    public void levelUp() {
-        xp = 0;
-        xpToNextLevel *= 1.5;
     }
 }

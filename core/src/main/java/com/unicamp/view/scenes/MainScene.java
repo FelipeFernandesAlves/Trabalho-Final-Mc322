@@ -30,7 +30,7 @@ public class MainScene extends Scene {
 		player.addWeapon(new Whip());
 
 		this.batch = batch;
-		this.zombieSpawner = new EnemySpawner<Zombie>(entityManager, 0, () -> new Zombie(0, 0), camera);
+		this.zombieSpawner = new EnemySpawner<Zombie>(entityManager, 0, () -> new Zombie(0, 0, entityManager), camera);
 		addEntity(player);
 	}
 

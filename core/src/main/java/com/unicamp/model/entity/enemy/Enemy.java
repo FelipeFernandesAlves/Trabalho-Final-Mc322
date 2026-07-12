@@ -1,18 +1,30 @@
 package com.unicamp.model.entity.enemy;
 
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
+
 import com.unicamp.model.entity.Creature;
-import com.unicamp.model.entity.Entity;
 import com.unicamp.model.entity.EntityManager;
 import com.unicamp.model.entity.Player;
+import com.unicamp.model.entity.itemdrop.ChickenDrop;
+import com.unicamp.model.entity.itemdrop.ItemDrop;
 import com.unicamp.model.valueobject.PositionVO;
 
 public abstract class Enemy extends Creature {
 
+    private final int dropChance = 50;
+    private List<Function<? super Enemy, ? extends ItemDrop>> dropTable = List.of(
+        (Enemy enemy) -> new ChickenDrop(enemy.getX(), enemy.getY())
+    );
+
+    private final EntityManager entityManager;
     private float baseSpeed;
     private int damage;
 
-    public Enemy(float x, float y, float baseSpeed, int health, int damage, float hitW, float hitH) {
+    public Enemy(float x, float y, float baseSpeed, int health, int damage, float hitW, float hitH, EntityManager entityManager) {
         super(x, y, hitW, hitH, health);
+        this.entityManager = entityManager;
         this.baseSpeed = baseSpeed;
         this.damage = damage;
     }
@@ -42,6 +54,18 @@ public abstract class Enemy extends Creature {
         }
         
         move();
+    }
+    
+    @Override
+    protected void onDeath() {
+        super.onDeath();
+        Random random = new Random();
+        
+        if (random.nextInt(100) <= dropChance) {
+            Function<? super Enemy, ? extends ItemDrop> itemToDrop = dropTable.get(random.nextInt(dropTable.size()));
+            ItemDrop drop = itemToDrop.apply(this);
+            entityManager.spawnEntity(drop);
+        }
     }
 
     public int getDamage() { return damage; }

@@ -38,7 +38,6 @@ public abstract class Entity implements CameraFocusable {
 
 		if (handler == null) {
             for (Map.Entry<Class<? extends Entity>, Consumer<Entity>> entry : collisionHandlers.entrySet()) {
-
                 if (entry.getKey().isAssignableFrom(targetClass)) {
                     handler = entry.getValue();
                     collisionHandlers.put(targetClass, handler);

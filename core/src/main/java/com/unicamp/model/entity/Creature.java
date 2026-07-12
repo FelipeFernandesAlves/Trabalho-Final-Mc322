@@ -36,6 +36,11 @@ public abstract class Creature extends Entity {
 		}
 	}
 
+	public void restoreHealth(int health) {
+		hp += health;
+		if (hp > maxHp) hp = maxHp;
+	}
+
 	public boolean getIsOnDamageCooldown() {
 		return this.isOnDamageCooldown;
 	}
