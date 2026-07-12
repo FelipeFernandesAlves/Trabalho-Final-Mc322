@@ -28,7 +28,7 @@ public abstract class Entity {
 	}
 
 	protected void create() {}
-	public abstract void update(float deltaTime);
+	public abstract void update(float deltaTime, EntitySpawner entitySpawner);
 
 	public void resolveCollision(Entity other) {
 		Consumer<Entity> handler = collisionHandlers.get(other.getClass());

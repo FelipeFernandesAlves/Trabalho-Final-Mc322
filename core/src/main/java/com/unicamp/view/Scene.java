@@ -6,14 +6,17 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.unicamp.model.Entity;
+import com.unicamp.model.EntitySpawner;
 
 public abstract class Scene {
 
     protected final List<Entity> entities;
+    protected final EntitySpawner entitySpawner;
 	protected final RendererFactory rendererFactory;
 
     public Scene() {
         this.entities = new ArrayList<>();
+        this.entitySpawner = new EntitySpawner();
 		this.rendererFactory = RendererFactory.getInstance();
 	}
 
@@ -31,12 +34,17 @@ public abstract class Scene {
             Entity entity = iterator.next();
             
             if (entity.isActive()) {
-                entity.update(deltaTime);
+                entity.update(deltaTime, entitySpawner);
             } else {
                 iterator.remove(); 
             }
         }
         
+        if (!entitySpawner.isEmpty()) {
+            entities.addAll(entitySpawner.getEntitiesToSpawn());
+            entitySpawner.clear();
+        }
+
         onUpdate(deltaTime);
     }
 
