@@ -33,8 +33,11 @@ public class EnemySpawner<T extends Enemy> {
         this.random = new Random();
         this.enemyFactory = enemyFactory != null ? enemyFactory : () -> (T) new Zombie(0, 0);
     }
-
+    
     public void update(float delta) {
+        
+        if(entityManager.getIsPaused()) return;
+        
         spawnTimer += delta;
         if (spawnTimer >= SPAWN_INTERVAL) {
             spawnEnemy();

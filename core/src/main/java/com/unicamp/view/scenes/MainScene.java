@@ -24,7 +24,7 @@ public class MainScene extends Scene {
 	public MainScene(SpriteBatch batch, OrthographicCamera camera) {
         this.camera = camera;
         this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-  		this.backgroundRenderer = new BackgroundRenderer("grass.png");
+  		this.backgroundRenderer = new BackgroundRenderer("background/Floor.png",4,3);
 		
 		this.player = new Player(0, 0);
 		player.addWeapon(new Whip());
