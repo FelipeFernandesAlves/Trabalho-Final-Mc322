@@ -25,20 +25,24 @@ public class GameplayScreen implements Screen {
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, 800, 600);
 
-        this.scene = new MainScene(); 
+        this.scene = new MainScene(batch, camera);
     }
 
     @Override
     public void render(float delta) {
         handleInput(delta);
-        scene.updateState(delta);
-        camera.update();
 
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        
         batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+
+        scene.updateState(delta);
+        camera.update();
 		scene.render(batch, delta);
+        
+        batch.end();
     }
 
     /**
