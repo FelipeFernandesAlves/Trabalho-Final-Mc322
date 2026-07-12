@@ -58,5 +58,8 @@ public abstract class Entity implements CameraFocusable {
 	public float getySpeed() { return ySpeed; }
 	public void setxSpeed(float xSpeed) { this.xSpeed = xSpeed; }
 	public void setySpeed(float ySpeed) { this.ySpeed = ySpeed; }
+
+	public void setX(float x) { this.x = x; }
+    public void setY(float y) { this.y = y; }
 	
 }
