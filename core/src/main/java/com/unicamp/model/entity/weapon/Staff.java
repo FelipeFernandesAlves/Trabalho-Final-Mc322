@@ -1,8 +1,7 @@
-package com.unicamp.model.entity;
+package com.unicamp.model.entity.weapon;
 
 import com.unicamp.model.CombatStats;
-import com.unicamp.model.EntityManager;
-import com.unicamp.model.Weapon;
+import com.unicamp.model.entity.EntityManager;
 
 public class Staff extends Weapon {
 

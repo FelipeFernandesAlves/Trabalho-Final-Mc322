@@ -1,9 +1,8 @@
-package com.unicamp.model.entity;
+package com.unicamp.model.entity.weapon;
 
 import com.unicamp.exception.NullEntityException;
 import com.unicamp.model.CombatStats;
-import com.unicamp.model.EntityManager;
-import com.unicamp.model.Weapon;
+import com.unicamp.model.entity.EntityManager;
 import com.unicamp.model.entity.projectile.WhipProjectile;
 
 public class Whip extends Weapon {

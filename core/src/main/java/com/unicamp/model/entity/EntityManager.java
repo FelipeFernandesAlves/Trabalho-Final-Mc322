@@ -1,4 +1,4 @@
-package com.unicamp.model;
+package com.unicamp.model.entity;
 
 import java.util.ArrayList;
 import java.util.Comparator;

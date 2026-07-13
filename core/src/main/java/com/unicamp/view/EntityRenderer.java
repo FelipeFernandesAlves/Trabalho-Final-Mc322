@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.unicamp.model.Entity;
+import com.unicamp.model.entity.Entity;
 
 public interface EntityRenderer<T extends Entity> {
 	public static final float RENDER_WIDTH = 128f; 

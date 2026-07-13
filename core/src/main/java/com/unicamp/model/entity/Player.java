@@ -5,14 +5,10 @@ import java.util.Set;
 
 import com.unicamp.exception.IllegalEntityStateException;
 import com.unicamp.model.CombatStats;
-import com.unicamp.model.EntityManager;
-import com.unicamp.model.Weapon;
+import com.unicamp.model.entity.enemy.Enemy;
+import com.unicamp.model.entity.weapon.Weapon;
 
 public class Player extends Creature {
-
-    private int level = 1;
-    private int xp = 0;
-    private int xpToNextLevel = 100;
 
     private final CombatStats stats;
 
@@ -61,10 +57,5 @@ public class Player extends Creature {
             }
         }
         return null;
-    }
-
-    public void levelUp() {
-        xp = 0;
-        xpToNextLevel *= 1.5;
     }
 }

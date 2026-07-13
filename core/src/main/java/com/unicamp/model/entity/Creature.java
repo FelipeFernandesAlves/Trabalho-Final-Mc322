@@ -1,8 +1,5 @@
 package com.unicamp.model.entity;
 
-import com.unicamp.model.Entity;
-import com.unicamp.model.EntityManager;
-
 public abstract class Creature extends Entity {
 
     private int maxHp;
@@ -37,6 +34,11 @@ public abstract class Creature extends Entity {
 		if (hp <= 0) {
 			onDeath();
 		}
+	}
+
+	public void restoreHealth(int health) {
+		hp += health;
+		if (hp > maxHp) hp = maxHp;
 	}
 
 	public boolean getIsOnDamageCooldown() {

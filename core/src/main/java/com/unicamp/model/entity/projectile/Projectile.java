@@ -1,7 +1,7 @@
-package com.unicamp.model.entity;
+package com.unicamp.model.entity.projectile;
 
-import com.unicamp.model.Entity;
-import com.unicamp.model.EntityManager;
+import com.unicamp.model.entity.Entity;
+import com.unicamp.model.entity.EntityManager;
 
 public class Projectile extends Entity {
 

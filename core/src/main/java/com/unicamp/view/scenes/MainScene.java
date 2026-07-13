@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.unicamp.model.entity.Player;
-import com.unicamp.model.entity.Whip;
-import com.unicamp.model.entity.Zombie;
+import com.unicamp.model.entity.enemy.Zombie;
+import com.unicamp.model.entity.weapon.Whip;
 import com.unicamp.view.EnemySpawner;
 import com.unicamp.view.Scene;
 import com.unicamp.view.renderer.BackgroundRenderer;
@@ -30,7 +30,7 @@ public class MainScene extends Scene {
 		player.addWeapon(new Whip());
 
 		this.batch = batch;
-		this.zombieSpawner = new EnemySpawner<Zombie>(entityManager, 0, () -> new Zombie(0, 0), camera);
+		this.zombieSpawner = new EnemySpawner<Zombie>(entityManager, 0, () -> new Zombie(0, 0, entityManager), camera);
 		addEntity(player);
 	}
 

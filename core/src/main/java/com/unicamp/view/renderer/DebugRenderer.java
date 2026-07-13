@@ -3,7 +3,7 @@ package com.unicamp.view.renderer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.unicamp.model.Entity;
+import com.unicamp.model.entity.Entity;
 import com.unicamp.view.EntityRenderer;
 
 public class DebugRenderer implements EntityRenderer<Entity> {

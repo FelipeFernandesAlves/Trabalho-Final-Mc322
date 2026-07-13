@@ -3,10 +3,12 @@ package com.unicamp.view;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.unicamp.model.Entity;
+import com.unicamp.model.entity.Entity;
 import com.unicamp.model.entity.Player;
-import com.unicamp.model.entity.Zombie;
+import com.unicamp.model.entity.enemy.Zombie;
+import com.unicamp.model.entity.itemdrop.ChickenDrop;
 import com.unicamp.model.entity.projectile.WhipProjectile;
+import com.unicamp.view.renderer.ChickenDropRenderer;
 import com.unicamp.view.renderer.PlayerRenderer;
 import com.unicamp.view.renderer.WhipRenderer;
 import com.unicamp.view.renderer.ZombieRenderer;
@@ -21,6 +23,7 @@ public class RendererFactory {
 		addRenderer(Player.class, new PlayerRenderer());
 		addRenderer(WhipProjectile.class, new WhipRenderer());
 		addRenderer(Zombie.class, new ZombieRenderer());
+		addRenderer(ChickenDrop.class, new ChickenDropRenderer());
 	}
 
 	public static void build() {

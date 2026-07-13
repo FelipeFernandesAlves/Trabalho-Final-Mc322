@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.unicamp.model.entity.EntityManager;
+import com.unicamp.model.entity.enemy.Zombie;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.unicamp.model.EntityManager;
-import com.unicamp.model.entity.Zombie;
 import com.unicamp.view.EntityRenderer;
 
 /**

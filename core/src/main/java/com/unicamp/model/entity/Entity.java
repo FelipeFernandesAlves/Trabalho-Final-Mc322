@@ -1,9 +1,10 @@
-package com.unicamp.model;
+package com.unicamp.model.entity;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import com.unicamp.model.CameraFocusable;
 import com.unicamp.exception.IllegalEntityStateException;
 
 public abstract class Entity implements CameraFocusable {
@@ -38,7 +39,6 @@ public abstract class Entity implements CameraFocusable {
 
 		if (handler == null) {
             for (Map.Entry<Class<? extends Entity>, Consumer<Entity>> entry : collisionHandlers.entrySet()) {
-
                 if (entry.getKey().isAssignableFrom(targetClass)) {
                     handler = entry.getValue();
                     collisionHandlers.put(targetClass, handler);
