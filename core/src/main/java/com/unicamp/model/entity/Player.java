@@ -3,6 +3,7 @@ package com.unicamp.model.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.unicamp.exception.IllegalEntityStateException;
 import com.unicamp.model.CombatStats;
 import com.unicamp.model.entity.enemy.Enemy;
 import com.unicamp.model.entity.weapon.Weapon;
@@ -32,7 +33,11 @@ public class Player extends Creature {
             weapon.update(deltaTime, getX(), getY(), stats, entitySpawner);
         }
         
-        move();
+        try {
+            move();
+        } catch (IllegalEntityStateException e) {
+            System.err.println("Movimento ignorado: " + e.getMessage());
+        }
     }
 
     public void addWeapon(Weapon w) {

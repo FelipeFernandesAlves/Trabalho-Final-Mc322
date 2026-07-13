@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import com.unicamp.model.CameraFocusable;
+import com.unicamp.exception.IllegalEntityStateException;
 
 public abstract class Entity implements CameraFocusable {
 	private float x;
@@ -30,7 +31,7 @@ public abstract class Entity implements CameraFocusable {
 	}
 
 	protected void create() {}
-	public abstract void update(float deltaTime, EntityManager entitySpawner);
+	public abstract void update(float deltaTime, EntityManager entitySpawner) ;
 
 	public void resolveCollision(Entity other) {
 		Class<? extends Entity> targetClass = other.getClass();
@@ -60,9 +61,15 @@ public abstract class Entity implements CameraFocusable {
 		active = false;
 	}
 
-	public void move() {
+	public void move() throws IllegalEntityStateException {
+
+		if (!this.active) {
+			throw new IllegalEntityStateException("Tentativa de mover entidade que já foi removida.");
+		}
+
 		x += xSpeed;
 		y += ySpeed;
+
 	}
 
 	public boolean checkCollision(Entity other) {

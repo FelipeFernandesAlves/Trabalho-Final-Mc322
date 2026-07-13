@@ -9,6 +9,7 @@ import com.unicamp.model.entity.EntityManager;
 import com.unicamp.model.entity.Player;
 import com.unicamp.model.entity.itemdrop.ChickenDrop;
 import com.unicamp.model.entity.itemdrop.ItemDrop;
+import com.unicamp.exception.IllegalEntityStateException;
 import com.unicamp.model.valueobject.PositionVO;
 
 public abstract class Enemy extends Creature {
@@ -53,7 +54,11 @@ public abstract class Enemy extends Creature {
             this.setySpeed(0);
         }
         
-        move();
+        try {
+            move();
+        } catch (IllegalEntityStateException e) {
+            System.err.println("Movimento ignorado: " + e.getMessage());
+        }
     }
     
     @Override
