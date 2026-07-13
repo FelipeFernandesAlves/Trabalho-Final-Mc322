@@ -3,40 +3,37 @@ package com.unicamp.view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Supplier;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.unicamp.model.entity.EntityManager;
 import com.unicamp.model.entity.Player;
+import com.unicamp.model.entity.enemy.CorpoSeco;
+import com.unicamp.model.entity.enemy.Diabo;
 import com.unicamp.model.entity.enemy.Enemy;
-import com.unicamp.model.entity.enemy.Zombie;
+import com.unicamp.model.entity.enemy.Lobisomem;
 import com.unicamp.model.valueobject.PositionVO;
 
-public class EnemySpawner<T extends Enemy> {
+public class EnemySpawner {
 
     private OrthographicCamera camera;
-    private List<T> enemies;
+    private List<Enemy> enemies;
     private float spawnTimer = 0f;
     private final float SPAWN_INTERVAL = 1.5f;
     private final Random random;
-    private final Supplier<T> enemyFactory;
 
     private EntityManager entityManager;
     private float spriteSize;
 
-    @SuppressWarnings("unchecked")
-	public EnemySpawner(EntityManager entityManager, float spriteSize, Supplier<T> enemyFactory, OrthographicCamera camera) {
+    public EnemySpawner(EntityManager entityManager, float spriteSize, OrthographicCamera camera) {
         this.entityManager = entityManager;
-		this.camera = camera;
+        this.camera = camera;
         this.spriteSize = spriteSize;
         this.enemies = new ArrayList<>();
         this.random = new Random();
-        this.enemyFactory = enemyFactory != null ? enemyFactory : () -> (T) new Zombie(0, 0, entityManager);
     }
     
     public void update(float delta) {
-        
-        if(entityManager.getIsPaused()) return;
+        if (entityManager.getIsPaused()) return;
         
         spawnTimer += delta;
         if (spawnTimer >= SPAWN_INTERVAL) {
@@ -44,7 +41,7 @@ public class EnemySpawner<T extends Enemy> {
             spawnTimer = 0f;
         }
 
-        for (T enemy : enemies) {
+        for (Enemy enemy : enemies) {
             wrapAroundCamera(enemy);
         }
     }
@@ -54,20 +51,33 @@ public class EnemySpawner<T extends Enemy> {
         if (target == null) return;
 
         float angle = (float) (random.nextDouble() * Math.PI * 2);
-
         float spawnRadius = (camera.viewportWidth / 2f) + spriteSize * 2;
 
         float spawnX = target.x() + (float) Math.cos(angle) * spawnRadius;
         float spawnY = target.y() + (float) Math.sin(angle) * spawnRadius;
 
-        T newEnemy = enemyFactory.get();
-        newEnemy.setX(spawnX);
-        newEnemy.setY(spawnY);
+        Enemy newEnemy = createRandomEnemy(spawnX, spawnY);
+        
         enemies.add(newEnemy);
-		entityManager.spawnEntity(newEnemy);
+        entityManager.spawnEntity(newEnemy);
     }
 
-    private void wrapAroundCamera(T enemy) {
+    private Enemy createRandomEnemy(float x, float y) {
+        int chance = random.nextInt(100);
+
+        if (chance < 10) { 
+            // 10% de chance: Lobisomem (tanque)
+            return new Lobisomem(x, y, entityManager);
+        } else if (chance < 30) { 
+            // 20% de chance: Diabo (rápido)
+            return new Diabo(x, y, entityManager);
+        } else { 
+            // 70% de chance: CorpoSeco (médio)
+            return new CorpoSeco(x, y, entityManager);
+        }
+    }
+
+    private void wrapAroundCamera(Enemy enemy) {
         float camX = camera.position.x;
         float camY = camera.position.y;
         float width = camera.viewportWidth;

@@ -1,26 +1,22 @@
 package com.unicamp.model.entity.weapon;
 
-import com.unicamp.exception.NullEntityException;
 import com.unicamp.model.CombatStats;
 import com.unicamp.model.entity.EntityManager;
 import com.unicamp.model.entity.projectile.WhipProjectile;
 
 public class Whip extends Weapon {
 
-	public Whip() {
-		super(10000,3.5f);
-	}
+    public Whip() {
+        super(15f, 3.5f);
+    }
 
-	private float weaponTimer = 0.0f;
+    @Override
+    protected void executeAttack(float originX, float originY, float finalDamage, CombatStats stats, EntityManager spawner) {
+        spawner.spawnEntity(new WhipProjectile(originX, originY, finalDamage));
+    }
 
-	@Override
-	protected void executeAttack(float originX, float originY, float finalDamage, CombatStats stats,
-			EntityManager spawner) {
-		spawner.spawnEntity(new WhipProjectile(originX, originY, finalDamage));
-	}
-
-	@Override
-	public void levelUp() {
-	}
-
+    @Override
+    public void levelUp() {
+        this.baseDamage += 2f;
+    }
 }

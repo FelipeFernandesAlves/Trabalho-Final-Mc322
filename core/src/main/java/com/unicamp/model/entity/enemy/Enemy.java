@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
+import com.unicamp.exception.IllegalEntityStateException;
 import com.unicamp.model.entity.Creature;
 import com.unicamp.model.entity.EntityManager;
 import com.unicamp.model.entity.Player;
 import com.unicamp.model.entity.itemdrop.ChickenDrop;
-import com.unicamp.model.entity.itemdrop.ItemDrop;
-import com.unicamp.exception.IllegalEntityStateException;
+import com.unicamp.model.entity.itemdrop.ItemDrop; // <-- Import da arma
+import com.unicamp.model.entity.projectile.WhipProjectile;
 import com.unicamp.model.valueobject.PositionVO;
 
 public abstract class Enemy extends Creature {
@@ -28,6 +29,13 @@ public abstract class Enemy extends Creature {
         this.entityManager = entityManager;
         this.baseSpeed = baseSpeed;
         this.damage = damage;
+
+        // Colisão centralizada: qualquer inimigo toma dano do chicote
+        onCollideWith(WhipProjectile.class, projectile -> {
+            if (!getIsOnDamageCooldown()) {
+                takeDamage((int) projectile.getDamage());
+            }
+        });
     }
 
     @Override
@@ -36,10 +44,8 @@ public abstract class Enemy extends Creature {
         PositionVO target = entityManager.findFirst(Player.class);
 
         if (target != null) {
-            
             float dirX = target.x() - this.getX();
             float dirY = target.y() - this.getY();
-
             float distance = (float) Math.sqrt(dirX * dirX + dirY * dirY);
             
             if (distance > 0) {
