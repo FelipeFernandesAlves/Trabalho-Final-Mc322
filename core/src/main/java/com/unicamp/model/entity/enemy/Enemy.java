@@ -1,5 +1,6 @@
 package com.unicamp.model.entity.enemy;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
@@ -9,15 +10,21 @@ import com.unicamp.model.entity.Creature;
 import com.unicamp.model.entity.EntityManager;
 import com.unicamp.model.entity.Player;
 import com.unicamp.model.entity.itemdrop.ChickenDrop;
-import com.unicamp.model.entity.itemdrop.ItemDrop; // <-- Import da arma
-import com.unicamp.model.entity.projectile.WhipProjectile;
+import com.unicamp.model.entity.itemdrop.ItemDrop;
+import com.unicamp.model.entity.projectile.Projectile;
+import com.unicamp.model.entity.itemdrop.CrossDrop;
+import com.unicamp.model.entity.itemdrop.PistolDrop;
+import com.unicamp.model.entity.itemdrop.WhipDrop;
 import com.unicamp.model.valueobject.PositionVO;
 
 public abstract class Enemy extends Creature {
 
-    private final int dropChance = 50;
-    private List<Function<? super Enemy, ? extends ItemDrop>> dropTable = List.of(
-        (Enemy enemy) -> new ChickenDrop(enemy.getX(), enemy.getY())
+    private final int dropChance = 5;
+    private List<Function<? super Enemy, ? extends ItemDrop>> dropTable = Arrays.<Function<? super Enemy, ? extends ItemDrop>>asList(
+        (Enemy enemy) -> new ChickenDrop(enemy.getX(), enemy.getY()),
+        (Enemy enemy) -> new CrossDrop(enemy.getX(), enemy.getY()),
+        (Enemy enemy) -> new WhipDrop(enemy.getX(), enemy.getY()),
+        (Enemy enemy) -> new PistolDrop(enemy.getX(), enemy.getY())
     );
 
     private final EntityManager entityManager;
@@ -30,8 +37,7 @@ public abstract class Enemy extends Creature {
         this.baseSpeed = baseSpeed;
         this.damage = damage;
 
-        // Colisão centralizada: qualquer inimigo toma dano do chicote
-        onCollideWith(WhipProjectile.class, projectile -> {
+        onCollideWith(Projectile.class, projectile -> {
             if (!getIsOnDamageCooldown()) {
                 takeDamage((int) projectile.getDamage());
             }

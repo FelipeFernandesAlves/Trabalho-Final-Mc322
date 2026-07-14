@@ -13,12 +13,12 @@ import com.unicamp.view.RendererFactory;
 import com.unicamp.view.renderer.DebugRenderer;
 
 public class EntityManager {
-    private final List<Entity> entitiesToSpawn;
-    private final List<Entity> entities;
-    private final RendererFactory rendererFactory;
-    
-    private final boolean isDebug = true;
-    private final DebugRenderer debugRenderer = new DebugRenderer();
+	private final List<Entity> entitiesToSpawn;
+	private final List<Entity> entities;
+	private final RendererFactory rendererFactory;
+	
+	private final boolean isDebug = false;
+	private final DebugRenderer debugRenderer = new DebugRenderer();
 
     private static float globalTime = 0f;
     private boolean isPaused = false;
