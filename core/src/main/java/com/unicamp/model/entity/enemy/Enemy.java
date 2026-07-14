@@ -19,7 +19,7 @@ import com.unicamp.model.valueobject.PositionVO;
 
 public abstract class Enemy extends Creature {
 
-    private final int dropChance = 5;
+    private final int dropChance = 20;
     private List<Function<? super Enemy, ? extends ItemDrop>> dropTable = Arrays.<Function<? super Enemy, ? extends ItemDrop>>asList(
         (Enemy enemy) -> new ChickenDrop(enemy.getX(), enemy.getY()),
         (Enemy enemy) -> new CrossDrop(enemy.getX(), enemy.getY()),

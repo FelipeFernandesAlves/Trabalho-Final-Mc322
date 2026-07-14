@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.unicamp.model.entity.Creature;
 import com.unicamp.model.entity.Player;
 import com.unicamp.model.entity.weapon.Whip;
 import com.unicamp.model.valueobject.CreatureHealth;
