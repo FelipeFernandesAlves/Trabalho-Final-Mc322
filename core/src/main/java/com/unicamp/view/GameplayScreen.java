@@ -12,7 +12,7 @@ public class GameplayScreen implements Screen {
     private final SpriteBatch batch;
     private final OrthographicCamera camera;
 
-    private final Scene scene;
+    private Scene scene;
 
     float spriteSize = 64f;
 
@@ -24,7 +24,7 @@ public class GameplayScreen implements Screen {
         this.batch = batch;
 
         this.camera = new OrthographicCamera();
-        this.camera.setToOrtho(false, 800, 600);
+        this.camera.setToOrtho(false, 1024f, 768f);
 
         this.scene = new MainScene(batch, camera);
     }
@@ -61,9 +61,13 @@ public class GameplayScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        camera.viewportWidth = 800f;
-        camera.viewportHeight = 800f * height / width;
+        camera.viewportWidth = 1024f;
+        camera.viewportHeight = 1024f * height / width;
         camera.update();
+        
+        if (scene != null) {
+            scene.resize(width, height);
+        }
     }
 
     @Override
@@ -80,5 +84,6 @@ public class GameplayScreen implements Screen {
 
     @Override
     public void dispose() {
+        scene.dispose();
     }
 }

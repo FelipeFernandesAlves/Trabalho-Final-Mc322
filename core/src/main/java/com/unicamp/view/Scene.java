@@ -33,4 +33,6 @@ public abstract class Scene {
         entityManager.render(batch);
 	}
 
+    public void resize(int width, int height) {}
+    public void dispose() {}
 }

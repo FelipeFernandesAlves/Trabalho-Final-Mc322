@@ -7,7 +7,7 @@ import com.unicamp.model.entity.projectile.WhipProjectile;
 public class Whip extends Weapon {
 
     public Whip() {
-        super(15f, 3.5f);
+        super(28f, 3.5f);
     }
 
     @Override

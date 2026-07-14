@@ -1,5 +1,7 @@
 package com.unicamp.model.entity;
 
+import com.unicamp.model.valueobject.CreatureHealth;
+
 public abstract class Creature extends Entity {
 
     private int maxHp;
@@ -47,5 +49,9 @@ public abstract class Creature extends Entity {
 
 	protected void onDeath() {
 		this.active = false;
+	}
+
+	public CreatureHealth getHealth() {
+		return new CreatureHealth(hp, maxHp);
 	}
 }

@@ -45,7 +45,7 @@ public class EntityManager {
 
     public void spawnEntities(List<Entity> entities) throws NullEntityException {
         if (entities == null) {
-            throw new NullEntityException("Tentando spawnar uma entidades null");
+            throw new NullEntityException("Tentando spawnar uma entidade null");
         }
         entitiesToSpawn.addAll(entities);
     }

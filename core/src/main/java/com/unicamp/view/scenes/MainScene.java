@@ -4,9 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.unicamp.model.entity.Creature;
 import com.unicamp.model.entity.Player;
 import com.unicamp.model.entity.weapon.Whip;
+import com.unicamp.model.valueobject.CreatureHealth;
 import com.unicamp.view.EnemySpawner;
 import com.unicamp.view.Scene;
 import com.unicamp.view.renderer.BackgroundRenderer;
@@ -18,8 +23,11 @@ public class MainScene extends Scene {
     private final OrthographicCamera camera;
     private final BackgroundRenderer backgroundRenderer;
 
-    // Corrigido: sem parâmetros genéricos <CorpoSeco>
-    private final EnemySpawner zombieSpawner;
+    private final EnemySpawner enemySpawner;
+    
+    private final Viewport uiViewport;
+    private final Texture healthInsideTex;
+    private final Texture healthOutlineTex;
 
     public MainScene(SpriteBatch batch, OrthographicCamera camera) {
         this.camera = camera;
@@ -31,8 +39,13 @@ public class MainScene extends Scene {
 
         this.batch = batch;
         
-        this.zombieSpawner = new EnemySpawner(entityManager, 0f, camera);
+        this.enemySpawner = new EnemySpawner(entityManager, 0f, camera);
         addEntity(player);
+
+        this.uiViewport = new ScreenViewport();
+        this.uiViewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+        this.healthInsideTex = new Texture("ui/life_fill.png");
+        this.healthOutlineTex = new Texture("ui/life_bar.png");
     }
 
     @Override
@@ -47,8 +60,63 @@ public class MainScene extends Scene {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        zombieSpawner.update(deltaTime);
+        enemySpawner.update(deltaTime);
         backgroundRenderer.render(batch, player, camera.viewportWidth, camera.viewportHeight);
+    }
+
+    @Override
+    public void render(SpriteBatch batch, float delta) {
+        super.render(batch, delta);
+
+        boolean wasDrawing = batch.isDrawing();
+        if (wasDrawing) {
+            batch.end();
+        }
+
+        uiViewport.apply(); 
+
+        batch.setProjectionMatrix(uiViewport.getCamera().combined);
+        batch.begin();
+        
+        drawHealthBar(batch);
+        
+        batch.end();
+
+        if (wasDrawing) {
+            batch.begin();
+        }
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        uiViewport.update(width, height, true);
+        // camera.setToOrtho(false, width, height);
+    }
+
+    private void drawHealthBar(SpriteBatch batch) {
+        CreatureHealth health = player.getHealth();
+        float maxHealth = health.maxHealth(); 
+        float currentHealth = health.health(); 
+        float healthPercentage = currentHealth / maxHealth;
+        healthPercentage = Math.max(0, Math.min(1, healthPercentage));
+
+        float xPos = 20f;
+        float yPos = -healthOutlineTex.getHeight()/3; 
+
+        int cropWidth = (int) (healthInsideTex.getWidth() * healthPercentage);
+
+        if (cropWidth > 0) {
+            batch.draw(
+                healthInsideTex, 
+                xPos, yPos, 
+                cropWidth, healthInsideTex.getHeight(), 
+                0, 0, 
+                cropWidth, healthInsideTex.getHeight(), 
+                false, false 
+            );
+        }
+
+        batch.draw(healthOutlineTex, xPos, yPos);
     }
 
     public void input() {
@@ -64,5 +132,11 @@ public class MainScene extends Scene {
 
         player.setxSpeed(speedX * WALK_SPEED);
         player.setySpeed(speedY * WALK_SPEED);
+    }
+
+    @Override
+    public void dispose() {
+        healthInsideTex.dispose();
+        healthOutlineTex.dispose();
     }
 }
